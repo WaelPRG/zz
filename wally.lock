@@ -103,6 +103,16 @@ version = "1.2.7"
 dependencies = [["collections", "jsdotlua/collections@1.2.7"]]
 
 [[package]]
+name = "littensy/charm"
+version = "0.10.0"
+dependencies = []
+
+[[package]]
+name = "littensy/react-charm"
+version = "0.3.0"
+dependencies = [["React", "jsdotlua/react@17.2.1"], ["charm", "littensy/charm@0.10.0"]]
+
+[[package]]
 name = "pepeeltoro41/ui-labs"
 version = "2.4.2"
 dependencies = []
@@ -155,4 +165,4 @@ dependencies = []
 [[package]]
 name = "waela/zz"
 version = "0.1.0"
-dependencies = [["Comm", "sleitnick/comm@1.0.1"], ["Component", "sleitnick/component@2.4.8"], ["React", "jsdotlua/react@17.2.1"], ["ReactRoblox", "jsdotlua/react-roblox@17.2.1"], ["Signal", "sleitnick/signal@2.0.3"], ["TableUtil", "sleitnick/table-util@1.2.1"], ["cmdr", "evaera/cmdr@1.12.0"], ["knit", "sleitnick/knit@1.7.0"], ["profilestore", "sekuriyo-lotus/profilestore@1.0.4"], ["ui-labs", "pepeeltoro41/ui-labs@2.4.2"], ["vide", "centau/vide@0.4.0"]]
+dependencies = [["Comm", "sleitnick/comm@1.0.1"], ["Component", "sleitnick/component@2.4.8"], ["React", "jsdotlua/react@17.2.1"], ["ReactRoblox", "jsdotlua/react-roblox@17.2.1"], ["Signal", "sleitnick/signal@2.0.3"], ["TableUtil", "sleitnick/table-util@1.2.1"], ["charm", "littensy/charm@0.10.0"], ["cmdr", "evaera/cmdr@1.12.0"], ["knit", "sleitnick/knit@1.7.0"], ["profilestore", "sekuriyo-lotus/profilestore@1.0.4"], ["react-charm", "littensy/react-charm@0.3.0"], ["ui-labs", "pepeeltoro41/ui-labs@2.4.2"], ["vide", "centau/vide@0.4.0"]]

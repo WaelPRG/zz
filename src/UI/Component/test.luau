@@ -3,6 +3,7 @@ local RunService = game:GetService("RunService")
 
 local React = require(ReplicatedStorage.Packages.React)
 local _ReactRoblox = require(ReplicatedStorage.Packages.ReactRoblox)
+local charm = require(ReplicatedStorage.Packages.charm)
 local useCoinshook = require(ReplicatedStorage.UI.Hooks.useCoinshook)
 local TextLabel = require(ReplicatedStorage.UI.Primitive.TextLabel)
 
