@@ -13,13 +13,20 @@ local Magnets = require(ReplicatedStorage.Shared.Refrences.Magnets)
 
 local callbacks = {}
 
+local DataStoreService
 local MaterialsService
 local BackPackService
+
+
+export type Magnet = MagnetClass.Magnet
 
 local MagnetService = knit.CreateService({
 	Name = "MagnetService",
 	connections = {},
 	Magnets = {},
+	Client = {
+		attractMaterial = knit.CreateSignal(),
+	},
 })
 
 function MagnetService:KnitInit()
@@ -31,14 +38,28 @@ function MagnetService:KnitInit()
 	)
 end
 
-function MagnetService:KnitStart() 
-	while task.wait(2) do
-		for _, Magnet in self.Magnets do
-			task.spawn(function()
-				Magnet:Attract()
-			end)
+function MagnetService:KnitStart ()
+
+	DataStoreService = knit.GetService("DataStoreService")
+	MaterialsService = knit.GetService("MaterialsService")
+	BackPackService = knit.GetService("BackPackService")
+
+	self:init()
+end
+
+function MagnetService:init ()
+
+	DataStoreService.IsHoldingChanged:Connect(function (Player : Player, value : boolean)
+		local magnet = self.Magnets[Player]
+		if not magnet then return end
+
+		if value == true then
+			magnet:startAttracting()
+		else
+			magnet:stopAttracting()
 		end
-	end
+
+	end)
 end
 
 function MagnetService:EquipMagnet (Player : Player, magnetName : string)
@@ -54,7 +75,19 @@ function MagnetService:EquipMagnet (Player : Player, magnetName : string)
 
 	local newMagnet = MagnetClass.new(Player, Magnet, callbacks)
 	self.Magnets[Player] = newMagnet
+	self:initMagnet(newMagnet)
 end
+
+function MagnetService:initMagnet (magnet : Magnet)
+	
+	magnet.Signals.insertMaterial:Connect(function(Material : Model)
+		if not BackPackService then 
+			warn(`[{script.Name}]: BackPackService is not loaded yet!!!!!`)
+			return
+		end
+		BackPackService:InsertMaterial(magnet.Owner, Material)
+	end)
+end 
 
 function MagnetService:CreateMagnet(Player: Player)
 
@@ -83,19 +116,5 @@ function callbacks.GetMaterialCallBack (Material : Model?)
 	return MaterialsService:GetMaterialByModel(Material)	
 end
 
-function callbacks.InsertMaterial (Player : Player, Material : Model)
-	
-	if not BackPackService then 
-		warn(`[{script.Name}]: BackPackService is not loaded yet!!!!!`)
-		return
-	end
-	BackPackService:InsertMaterial (Player, Material)
-end
-
-
-knit.OnStart():andThen(function()
-	MaterialsService = knit.GetService("MaterialsService")
-	BackPackService = knit.GetService("BackPackService")
-end)
 
 return MagnetService

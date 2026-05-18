@@ -48,10 +48,12 @@ function PlayersService:KnitStart ()
         local char = Player.Character or Player.CharacterAdded:Wait()
         
         if char then
+            self:addCollisionGroup(char)
             MagnetService:EquipMagnet(Player, equippedMagnet)
         end
 
-        Player.CharacterAdded:Connect(function(_char: Model)
+        Player.CharacterAdded:Connect(function(Char: Model)
+            self:addCollisionGroup(Char)
             MagnetService:EquipMagnet(Player, equippedMagnet)
         end)
 
@@ -65,6 +67,12 @@ function PlayersService:KnitStart ()
         MagnetService:DestroyMagnet(Player)
     end)
 
+end
+
+function PlayersService:addCollisionGroup (char : Model)
+    for _, part in char:QueryDescendants("BasePart") do
+        part.CollisionGroup = "Players"
+    end
 end
 
 

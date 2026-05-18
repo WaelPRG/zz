@@ -1,6 +1,7 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local React = require(ReplicatedStorage.Packages.React)
-local testing = require(ReplicatedStorage.UI.Component.test)
+local _testing = require(ReplicatedStorage.UI.Component.test)
+local HoldingUI = require(ReplicatedStorage.UI.features.HoldingUI)
 
 local e = React.createElement
 return function ()
@@ -10,9 +11,7 @@ return function ()
             ResetOnSpawn = false
         },
         {
-            tests = e(
-                testing
-            )
+            HoldingUI = e(HoldingUI)
         }
     )
 end

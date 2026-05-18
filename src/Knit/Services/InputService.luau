@@ -66,7 +66,6 @@ function InputService:InitInput (Player : Player)
 
     self.Players[Player].Signals.HoldingChanged:Connect(function(State: boolean)
         DataStoreService:UpdateIsHolding(Player, State)
-        print(Player, State)
     end)
 
 end
